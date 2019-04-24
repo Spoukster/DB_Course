@@ -1,0 +1,29 @@
+Спроектируйте базу данных, которая позволяла бы организовать хранение медиа-файлов, загружаемых пользователем (фото, аудио, видео). Сами файлы будут храниться в файловой системе, а база данных будет хранить только пути к файлам, названия, описания, ключевых слов и принадлежности пользователю.
+
+CREATE DATABASE media;
+USE media
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+	id SERIAL PRIMARY KEY,
+    name VARCHAR(255) COMMENT 'Имя пользователя',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    KEY index_of_name(name)
+) COMMENT 'Пользователи';
+
+DROP TABLE IF EXISTS files;
+CREATE TABLE files (
+	id SERIAL PRIMARY KEY,
+    path VARCHAR(255) NOT NULL COMMENT 'Путь к файлу',
+    name VARCHAR(255) COMMENT 'Имя файла',
+    description VARCHAR(1000) COMMENT 'Описание',
+    key_words VARCHAR(255) COMMENT 'Ключевые слова',
+    user_id INT UNSIGNED,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE unique_path(path),
+    KEY index_of_name(name),
+    KEY index_of_user_id(user_id),
+    KEY index_of_key_words(key_words)
+) COMMENT 'Информация о файлах';
