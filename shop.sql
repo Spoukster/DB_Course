@@ -13,33 +13,35 @@ INSERT IGNORE INTO catalogs VALUES
 	(DEFAULT, 'Процессоры'),
     (DEFAULT, 'Мат. платы'),
 --    (DEFAULT, 'Видеокарты'),
-    (DEFAULT, 'Видеокарты');
+    (DEFAULT, 'Видеокарты'),
+    (DEFAULT, 'Жесткие диски'),
+    (DEFAULT, 'Оперативная память');
     
 -- DELETE FROM catalogs WHERE id > 1 LIMIT 1;
 -- TRUNCATE catalogs;
 
-DROP TABLE IF EXISTS cat;
+/*DROP TABLE IF EXISTS cat;
 CREATE TABLE cat (
 	id SERIAL PRIMARY KEY,
     name VARCHAR(255) COMMENT 'Название раздела',
     UNIQUE unique_name(name(10))
 ) COMMENT 'Разделы интернет-магазина';
 
-/*UPDATE
+UPDATE
 	catalogs
 SET
 	name = 'Процессоры (Intel)'
 WHERE
 	name = 'Процессоры';*/
     
-INSERT INTO
+/*INSERT INTO
 	cat
 SELECT
 	*
 FROM
 	catalogs;
     
-SELECT * FROM cat;
+SELECT * FROM cat;*/
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -50,7 +52,14 @@ CREATE TABLE users (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) COMMENT 'Покупатели';
 
--- INSERT INTO users (id, name, birthday_at) VALUES (1, 'hello', '1979-01-27');
+INSERT INTO users (name, birthday_at) VALUES
+	('Геннадий', '1990-10-05'),
+    ('Наталья', '1984-11-12'),
+    ('Александр', '1985-05-20'),
+    ('Сергей', '1988-02-14'),
+    ('Иван', '1998-01-12'),
+    ('Мария', '1992-08-29');
+    
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
