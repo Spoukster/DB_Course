@@ -5,25 +5,34 @@ USE media
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) COMMENT 'Имя пользователя',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    KEY index_of_name(name)
+    INDEX users_name_idx(name)
 ) COMMENT 'Пользователи';
 
 DROP TABLE IF EXISTS files;
 CREATE TABLE files (
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     path VARCHAR(255) NOT NULL COMMENT 'Путь к файлу',
     name VARCHAR(255) COMMENT 'Имя файла',
     description VARCHAR(1000) COMMENT 'Описание',
     key_words VARCHAR(255) COMMENT 'Ключевые слова',
     user_id INT UNSIGNED,
+    files_type_id INT UNSIGNED NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE unique_path(path),
-    KEY index_of_name(name),
-    KEY index_of_user_id(user_id),
-    KEY index_of_key_words(key_words)
+    INDEX files_name_idx(name),
+    INDEX files_user_id_idx(user_id),
+    INDEX files_key_words_idx(key_words),
+
 ) COMMENT 'Информация о файлах';
+
+DROP TABLE IF EXISTS types;
+CREATE TABLE types (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(30),
+    INDEX types_type_idx(type)
+) COMMENT 'ТИпы файлов';
