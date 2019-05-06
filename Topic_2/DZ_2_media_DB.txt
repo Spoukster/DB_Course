@@ -20,7 +20,7 @@ CREATE TABLE files (
     description VARCHAR(1000) COMMENT 'Описание',
     key_words VARCHAR(255) COMMENT 'Ключевые слова',
     user_id INT UNSIGNED,
-    files_type_id INT UNSIGNED NOT NULL,
+    file_type_id INT UNSIGNED NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE unique_path(path),
@@ -33,6 +33,6 @@ CREATE TABLE files (
 DROP TABLE IF EXISTS types;
 CREATE TABLE types (
     id SERIAL PRIMARY KEY,
-    type VARCHAR(30),
+    name VARCHAR(30),
     INDEX types_type_idx(type)
 ) COMMENT 'ТИпы файлов';
